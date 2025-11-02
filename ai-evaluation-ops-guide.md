@@ -1,7 +1,7 @@
 # The Product Manager's Guide to AI Evaluation & Operations
 
 ## Executive Summary
-This guide provides a practical framework for product managers to evaluate and optimize AI features. It covers what to measure, when to measure it, and how to drive improvements based on evaluation results.
+This guide provides a practical framework for product managers to evaluate and optimize AI features. It covers what to measure, when to measure it, and how to drive improvements based on evaluation results. Includes both general framework and specific examples using a Loan Serviceability Calculator Agent.
 
 ---
 
@@ -12,6 +12,15 @@ This guide provides a practical framework for product managers to evaluate and o
 - Single prompt/response pairs
 - Tool call accuracy
 - Safety guardrails
+
+**Example - Serviceability Agent**:
+```
+Input: "Client earns $120k salary"
+Expected: Agent calls payg_income_api($120,000)
+Actual: Agent calls payg_income_api($120,000)
+Result: ✅ Pass
+```
+
 **Time**: 15-30 min/day reviewing automated reports
 
 ### Level 2: Integration Testing (Weekly)
@@ -19,6 +28,20 @@ This guide provides a practical framework for product managers to evaluate and o
 - Multi-step conversations
 - API integration reliability
 - Context retention
+
+**Example - Serviceability Agent**:
+```
+Broker: "Client has salary and rental income"
+Agent: "What's the annual salary?"
+Broker: "150k"
+Agent: "How many investment properties and total rental income?"
+Broker: "2 properties, $60k annually"
+Agent: [Calls salary_api + rental_calc_api → combines results]
+Expected Output: Borrowing capacity $850k
+Actual Output: Borrowing capacity $850k
+Result: ✅ Pass
+```
+
 **Time**: 2-3 hours/week deep dive
 
 ### Level 3: System Testing (Monthly)
@@ -37,6 +60,15 @@ This guide provides a practical framework for product managers to evaluate and o
 - Collect user feedback tickets
 - Review error reports
 - Note any prompt/model changes
+
+**Example Data Pull - Serviceability Agent**:
+```sql
+SELECT conversation_id, broker_id, income_types,
+       calculation_result, accuracy_flag, duration
+FROM serviceability_logs
+WHERE date >= '2024-10-21'
+AND accuracy_flag = 'MISMATCH'
+```
 
 ### Wednesday: Analyze (2 hours)
 - Run regression tests on top issues
