@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Evolution - Home Lending</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 50px;
+        }
+
+        .evolution-path {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .arrow-line {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, #48bb78, #4299e1, #9f7aea, #ed8936);
+            z-index: 0;
+        }
+
+        .arrow-head {
+            position: absolute;
+            right: -10px;
+            top: -7px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid #ed8936;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+        }
+
+        .stage {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 22%;
+            text-align: center;
+            border: 3px solid #e2e8f0;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .stage:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .stage-1 { border-color: #48bb78; }
+        .stage-2 { border-color: #4299e1; }
+        .stage-3 { border-color: #9f7aea; }
+        .stage-4 { border-color: #ed8936; }
+
+        .stage-1:hover { border-color: #38a169; background: #f0fff4; }
+        .stage-2:hover { border-color: #3182ce; background: #ebf8ff; }
+        .stage-3:hover { border-color: #805ad5; background: #faf5ff; }
+        .stage-4:hover { border-color: #dd6b20; background: #fffaf0; }
+
+        .stage-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .stage-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .stage-subtitle {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .capabilities {
+            text-align: left;
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.5;
+            list-style: none;
+            padding: 0;
+        }
+
+        .capabilities li {
+            margin-bottom: 4px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .capabilities li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #718096;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 15px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .timeline-label {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .complexity-bar {
+            margin-top: 12px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .complexity-fill-1 { width: 25%; background: #48bb78; }
+        .complexity-fill-2 { width: 50%; background: #4299e1; }
+        .complexity-fill-3 { width: 75%; background: #9f7aea; }
+        .complexity-fill-4 { width: 100%; background: #ed8936; }
+
+        .autonomy-label {
+            font-size: 10px;
+            color: #a0aec0;
+            text-transform: uppercase;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Agent Evolution Journey</h1>
+        <p class="subtitle">From Simple Q&A to Autonomous Loan Processing with Human Oversight</p>
+
+        <div class="evolution-path">
+            <div class="arrow-line">
+                <div class="arrow-head"></div>
+            </div>
+
+            <div class="stage stage-1">
+                <div class="stage-icon">💬</div>
+                <div class="stage-title">Knowledge Assistant</div>
+                <div class="stage-subtitle">RAG-powered Q&A</div>
+                <ul class="capabilities">
+                    <li>Credit policy queries</li>
+                    <li>Lending criteria</li>
+                    <li>Static information</li>
+                </ul>
+                <div class="complexity-bar">
+                    <div class="complexity-fill-1"></div>
+                </div>
+                <div class="autonomy-label">No Autonomy</div>
+            </div>
+
+            <div class="stage stage-2">
+                <div class="stage-icon">🧮</div>
+                <div class="stage-title">Smart Advisor</div>
+                <div class="stage-subtitle">Dynamic Calculations</div>
+                <ul class="capabilities">
+                    <li>Serviceability API</li>
+                    <li>Ready reckoners</li>
+                    <li>Interactive collection</li>
+                    <li>Complex income calcs</li>
+                </ul>
+                <div class="complexity-bar">
+                    <div class="complexity-fill-2"></div>
+                </div>
+                <div class="autonomy-label">Assisted</div>
+            </div>
+
+            <div class="stage stage-3">
+                <div class="stage-icon">🎯</div>
+                <div class="stage-title">Application Copilot</div>
+                <div class="stage-subtitle">Contextual Intelligence</div>
+                <ul class="capabilities">
+                    <li>Deal analysis</li>
+                    <li>Issue identification</li>
+                    <li>Solution recommendations</li>
+                    <li>Application Q&A</li>
+                </ul>
+                <div class="complexity-bar">
+                    <div class="complexity-fill-3"></div>
+                </div>
+                <div class="autonomy-label">Advisory</div>
+            </div>
+
+            <div class="stage stage-4">
+                <div class="stage-icon">🚀</div>
+                <div class="stage-title">Loan Autopilot</div>
+                <div class="stage-subtitle">Autonomous Execution</div>
+                <ul class="capabilities">
+                    <li>Workflow orchestration</li>
+                    <li>Human-in-loop approval</li>
+                    <li>Unconditional approval</li>
+                    <li>Full audit trail</li>
+                </ul>
+                <div class="complexity-bar">
+                    <div class="complexity-fill-4"></div>
+                </div>
+                <div class="autonomy-label">Autonomous</div>
+            </div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-label">Processing Time</div>
+                <div class="metric-value">Days → Hours → Minutes → Real-time</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Human Effort</div>
+                <div class="metric-value">100% → 70% → 40% → 10%</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Automation Level</div>
+                <div class="metric-value">0% → 30% → 60% → 90%</div>
+            </div>
+            <div class="metric">
+                <div class="metric-label">Business Value</div>
+                <div class="metric-value">$ → $$ → $$$ → $$$$</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>The Game Changer: Human-in-the-Loop Autonomy</h3>
+            <p>Stage 4 maintains critical human approval gates while automating 90% of the workflow, delivering both speed and compliance</p>
+        </div>
+
+        <div class="timeline-label">
+            <strong>Implementation Timeline:</strong> 3 months → 9 months → 15 months → 24 months<br>
+            <strong>ROI Acceleration:</strong> Each stage self-funds the next through efficiency gains
+        </div>
+    </div>
+</body>
+</html>
